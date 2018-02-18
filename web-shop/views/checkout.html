@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Quattrocento:400,700" rel="stylesheet">
+		<link rel="stylesheet" href="../css/style.css">
+		<script src="../scripts/validation.js"></script>
+	</head>
+	<body>
+		<nav>
+			<div class="left-nav">
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="shop.html">Shop</a></li>
+				</ul>
+			</div>
+			<div class="brand"><a href="index.html"><span>TEA</span></a></div>
+			<div class="cart"><a href=""><span class="fas fa-shopping-cart"></span><span> (0)</span></a></div>
+		</nav>
+		<main class="checkout-main">
+			<div class="form-container">
+				<form id="checkoutInfo" onsubmit="return (validate());">
+					<label>Your Name <span id="name-error" class="error-span"></span></label>
+					<div>
+						<input type="text" id="firstname" placeholder="First Name">
+						<input type="text" id="lastname" placeholder="Last Name">
+					</div>
+					<label for="mail">Your Email <span id="mail-error" class="error-span"></span></label>
+					<input type="text" id="mail" placeholder="Email" class="req">
+					<label for="phone">Your Phone Number</label>
+					<input type="text" id="phone" placeholder="Phone Number (Optional)">
+					<label for="address">Your Address <span id="address-error" class="error-span"></span></label>
+					<input type="text" id="address" placeholder="Address" class="req">
+					<input type="text" id="zip" placeholder="Zip Code" class="req">
+					<input type="text" id="city" placeholder="City" class="req">
+					<label for="comments">If You Have Any Comments?</label>
+					<textarea id="comments" rows="4"></textarea>
+					<button id="continue-button">CONTINUE</button>
+				</form>
+			</div>
+		</main>
+	</body>
+</html>
