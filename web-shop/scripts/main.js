@@ -9,7 +9,7 @@ var englishBreakfast = {
     price: 79,
     pImage: "../imgs/english-breakfast-black-tea__76269.1501613205.png"
 };
-var earlGay = {
+var earlGrey = {
     pName: "Earl Grey Tea",
     desc: "Earl Grey tea is a tea blend which has been flavoured with " +
     "the addition of oil of bergamot. Bergamot is a variety of orange that is often grown in Italy " +
@@ -73,7 +73,7 @@ var camomile = {
     pImage: "../imgs/chamomil.jpg"
 };
 
-var teas = [englishBreakfast, earlGay, darjeeling, gunpowder, genmai, jasmine, strawberry, camomile];
+var teas = [englishBreakfast, earlGrey, darjeeling, gunpowder, genmai, jasmine, strawberry, camomile];
 
 
 var productImage = document.querySelectorAll("img");
