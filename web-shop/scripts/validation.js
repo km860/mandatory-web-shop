@@ -16,6 +16,7 @@ function validate () {
     }
     else {
         document.getElementById("name-error").innerHTML = "your first name required";
+        firstName.focus();
         return false;
     }
     if (lastName.value.match(inputPattern)) {
@@ -24,6 +25,7 @@ function validate () {
     }
     else {
         document.getElementById("name-error").innerHTML = "your last name required";
+        lastName.focus();
         return false;
     }
 
@@ -33,6 +35,7 @@ function validate () {
 
     else {
         document.getElementById("mail-error").innerHTML = "email address required in the correct format";
+        mail.focus();
         return false;
     }
     if (address.value.match(addressPattern)) {
@@ -40,6 +43,7 @@ function validate () {
     }
     else {
         document.getElementById("address-error").innerHTML = "enter your address in the correct format";
+        address.focus();
         return false;
     }
 
@@ -48,6 +52,7 @@ function validate () {
     }
     else {
         document.getElementById("address-error").innerHTML = "enter your zip in correct format";
+        zipCode.focus();
         return false;
     }
 
@@ -56,6 +61,7 @@ function validate () {
     }
     else {
         document.getElementById("address-error").innerHTML = "enter your city";
+        city.focus();
         return false;
     }
     return true;
