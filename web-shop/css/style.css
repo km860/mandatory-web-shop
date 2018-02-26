@@ -231,6 +231,30 @@ textarea {
     margin-left: 10px;
 }
 
+.checkout-summary {
+    width: 45%;
+    background-color: #4242421a;
+    padding: 10px;
+}
+
+.cart-item {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.ci-left {
+    display: flex;
+}
+
+.ci-img img {
+    border: 1px solid grey;
+    margin-right: 5px;
+}
+
+.ci-quantity input {
+    width: 40px;
+}
+
 @media (max-width: 768px) {
 
     .brand {
@@ -248,8 +272,9 @@ textarea {
     .checkout-main {
         flex-direction: column;
     }
-    .form-container {
+    .form-container, .checkout-summary {
         width: 90%;
+        margin: 20px auto;
     }
     form div {
         display: flex;

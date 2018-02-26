@@ -74,6 +74,7 @@ var camomile = {
 };
 
 var teas = [englishBreakfast, earlGrey, darjeeling, gunpowder, genmai, jasmine, strawberry, camomile];
+localStorage.setItem("storeTeas", JSON.stringify(teas));
 
 
 var productImage = document.querySelectorAll("img");
@@ -114,20 +115,34 @@ for (var i = 0; i < tag.length; i++) {
 /* "n" håller reda på id för QUANTITY, "temp" innehåler värdet av QUANTITY och nollställs efter varje tryck på
     köp-knapparna. "counter" håller räkningen på temp och uppdaterar värdet i kundkorgen.
  */
+//document.getElementById("cartItems").innerText = localStorage.getItem("numberOfItems");
+
 
 var temp = 0;
 var counter = 0;
 var n;
+var storeName = [];
+var storeQ = [];
 
 
 btn.forEach(el => el.addEventListener("click", function () {
 
     console.log(el.getAttribute("id"));
+    storeName.push(el.getAttribute("id"));
     n = el.getAttribute("id").replace(/\s/g,'');
     console.log(n);
     temp = Number(document.getElementById(n).value);
+    storeQ.push(temp);
+
+
     counter += temp;
     console.log(counter);
     document.getElementById("cartItems").innerText = "(" + counter + ")";
+    localStorage.setItem("ids", JSON.stringify(storeName));
+    localStorage.setItem("quantity", JSON.stringify(storeQ));
+    /*localStorage.setItem(el.getAttribute("id"), temp);
+    localStorage.setItem('quant', temp);*/
     temp = 0;
 }));
+
+
