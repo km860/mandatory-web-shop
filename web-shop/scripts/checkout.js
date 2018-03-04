@@ -94,7 +94,6 @@ for(var i = 0; i < stored.length; i++) {
     //console.log(parseInt(testar[stored[i]]) + storedQ[i]);
 }
 //delete testar['English Breakfast Tea'];
-
 console.log(testar);
 var getTeas = localStorage.getItem("storeTeas");
 var teas = JSON.parse(getTeas);
@@ -155,4 +154,8 @@ for (i in teas) {
 
     }
 }
-
+removeBtn = document.getElementById("English Breakfast Tea");
+removeBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("EnglishBreakfastTea").innerHTML = "";
+});

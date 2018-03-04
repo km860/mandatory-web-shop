@@ -30,9 +30,8 @@ function validateField(input) {
         : removeValidationMessage(input);
 }
 
-button.addEventListener("click", function (event) {
-    event.preventDefault();
-    let firstName = document.getElementById("first-name");
+function validateForm() {
+    /*let firstName = document.getElementById("first-name");
     validateField(firstName);
 
     let lastName = document.getElementById("last-name");
@@ -52,6 +51,16 @@ button.addEventListener("click", function (event) {
 
 
     let city = document.getElementById("city");
-    validateField(city);
+    validateField(city);*/
+    let validateShit = document.getElementById("formen").querySelectorAll("[required]");
+    for (var i = 0; i < validateShit.length; i++) {
+        validateField(validateShit[i]);
+    }
+}
+
+button.addEventListener("click", function (event) {
+    event.preventDefault();
+    validateForm();
+
 
 });

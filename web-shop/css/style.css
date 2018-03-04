@@ -269,6 +269,10 @@ textarea {
         width: 100%;
     }
 
+    .item-text button {
+        width: 50%;
+    }
+
     .checkout-main {
         flex-direction: column;
     }

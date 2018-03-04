@@ -1,5 +1,5 @@
 
-var englishBreakfast = {
+let englishBreakfast = {
     pName: "English Breakfast Tea",
     desc: "English breakfast tea is a traditional blend of teas originating from Assam, " +
     "Ceylon, and Kenya. It is one of the most popular blended teas, common in British tea " +
@@ -9,7 +9,7 @@ var englishBreakfast = {
     price: 79,
     pImage: "../imgs/english-breakfast-black-tea__76269.1501613205.png"
 };
-var earlGrey = {
+let earlGrey = {
     pName: "Earl Grey Tea",
     desc: "Earl Grey tea is a tea blend which has been flavoured with " +
     "the addition of oil of bergamot. Bergamot is a variety of orange that is often grown in Italy " +
@@ -18,7 +18,7 @@ var earlGrey = {
     price: 89,
     pImage: "../imgs/Earl_Grey_1280.jpg"
 };
-var darjeeling = {
+let darjeeling = {
     pName: "Darjeeling",
     desc: "Darjeeling tea is a tea from the Darjeeling district in West Bengal, India. It is available in black, " +
     "green, white and oolong. When properly brewed, it yields a thin-bodied, light-coloured infusion with a " +
@@ -28,7 +28,7 @@ var darjeeling = {
     pImage: "../imgs/darjeeling.jpg"
 };
 
-var gunpowder = {
+let gunpowder = {
     pName: "Gunpowder",
     desc: "is a form of Chinese tea in which each leaf has been rolled into a small round pellet. " +
     "Its English name comes from its resemblance to grains of gunpowder. This rolling method of " +
@@ -38,7 +38,7 @@ var gunpowder = {
     pImage: "../imgs/gunpowder.jpg"
 };
 
-var genmai = {
+let genmai = {
     pName: "Genmai Cha",
     desc: "also called brown rice green tea, is the Japanese name for green tea combined with " +
     "roasted brown rice. It is sometimes referred to colloquially as \"popcorn tea\" " +
@@ -46,7 +46,7 @@ var genmai = {
     price: 129,
     pImage: "../imgs/genmai.jpg"
 };
-var jasmine = {
+let jasmine = {
     pName: "Jasmine Tea",
     desc: "Tea scented with aroma from jasmine blossoms to make a scented tea. " +
     "Typically, jasmine tea has green tea as the tea base; however, white tea and black " +
@@ -56,7 +56,7 @@ var jasmine = {
     pImage: "../imgs/Jasmine-tea.jpg"
 };
 
-var strawberry = {
+let strawberry = {
     pName: "Wild Strawberry",
     desc: "Fresh strawberries, apple pieces, hibiscus flowers and rose hips create a mellow, almost dessert-like tea. " +
     "Sweet strawberry and sugared rhubarb aroma, beautiful warm berry color, pleasantly aromatic and not super sweet. " +
@@ -64,7 +64,7 @@ var strawberry = {
     price: 150,
     pImage: "../imgs/wild-strawberry.jpg"
 };
-var camomile = {
+let camomile = {
     pName: "Chamomile Tea",
     desc: "Chamomile tea is one of the popular varieties of tea in the market and it has many health benefits and " +
     "uses. These include its ability to protect the skin, lower stress levels, regulate sleep, and " +
@@ -73,27 +73,28 @@ var camomile = {
     pImage: "../imgs/chamomil.jpg"
 };
 
-var teas = [englishBreakfast, earlGrey, darjeeling, gunpowder, genmai, jasmine, strawberry, camomile];
+let teas = [englishBreakfast, earlGrey, darjeeling, gunpowder, genmai, jasmine, strawberry, camomile];
 localStorage.setItem("storeTeas", JSON.stringify(teas));
 
 
-var productImage = document.querySelectorAll("img");
-for (var i = 0; i < productImage.length; i++) {
+
+let productImage = document.querySelectorAll("img");
+for (let i = 0; i < productImage.length; i++) {
     productImage[i].setAttribute("src", teas[i].pImage);
 
 }
-var productName = document.querySelectorAll("h4");
-for (var i = 0; i < productName.length; i++) {
+let productName = document.querySelectorAll("h4");
+for (let i = 0; i < productName.length; i++) {
     productName[i].innerHTML = teas[i].pName;
 }
 
-var productPrice = document.querySelectorAll(".price");
-for (var i = 0; i < productPrice.length; i++) {
+let productPrice = document.querySelectorAll(".price");
+for (let i = 0; i < productPrice.length; i++) {
     productPrice[i].innerHTML = teas[i].price + ":-";
 }
 
-var productDesc = document.querySelectorAll("p");
-for (var i = 0; i < productDesc.length; i++) {
+let productDesc = document.querySelectorAll("p");
+for (let i = 0; i < productDesc.length; i++) {
     productDesc[i].innerHTML = teas[i].desc;
 }
 
@@ -104,9 +105,9 @@ for (var i = 0; i < productDesc.length; i++) {
    produkten.
  */
 
-var btn = document.querySelectorAll("button");
-var tag = document.getElementsByTagName("LABEL");
-for (var i = 0; i < tag.length; i++) {
+let btn = document.querySelectorAll("button");
+let tag = document.getElementsByTagName("LABEL");
+for (let i = 0; i < tag.length; i++) {
     tag[i].setAttribute("for", teas[i].pName.replace(/\s/g,''));
     document.getElementsByTagName("INPUT")[i].setAttribute("id", teas[i].pName.replace(/\s/g,''));
     btn[i].setAttribute("id", teas[i].pName);
@@ -118,11 +119,11 @@ for (var i = 0; i < tag.length; i++) {
 //document.getElementById("cartItems").innerText = localStorage.getItem("numberOfItems");
 
 
-var temp = 0;
-var counter = 0;
-var n;
-var storeName = [];
-var storeQ = [];
+let temp = 0;
+let counter = 0;
+let n;
+let storeName = [];
+let storeQ = [];
 
 
 btn.forEach(el => el.addEventListener("click", function () {
