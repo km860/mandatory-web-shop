@@ -101,6 +101,15 @@ $(document).ready(function() {
     let counter = 0;
     let storeName = [];
     let storeQ = [];
+    let testArray = {};
+    if (sessionStorage.getItem('testTeas') !== null) {
+        testArray = JSON.parse(sessionStorage.getItem('testTeas'))
+        for (i in testArray) {
+            counter += testArray[i];
+        }
+        $('#cartItems').text(' (' + counter + ') ');
+    }
+    let testVar = 0;
 
     /* StoreName keeps track of the names of teas, temp keeps track of many of a particular tea you put in the cart, it is
        set to 0 for every new tea.
@@ -111,7 +120,14 @@ $(document).ready(function() {
     $('button').on('click', function() {
         $(this).closest('.item-text').find('h4').css('background-color', 'red');
         storeName.push($(this).closest('.item-text').find('h4').text());
+        testVar = $(this).closest('.item-text').find('h4').text();
         temp = +$(this).closest('.item-text').find('input').val();
+        if (testArray.hasOwnProperty(testVar)) {
+            testArray[testVar] = parseInt(testArray[testVar] + temp);
+        }
+        else {
+            testArray[testVar] = temp;
+        }
         storeQ.push(temp);
         counter += temp;
         $('#cartItems').text(' (' + counter + ') ');
@@ -119,6 +135,9 @@ $(document).ready(function() {
         sessionStorage.setItem("quantity", JSON.stringify(storeQ));
         //console.log($(this).closest('.item-text').find('h4').text());
         temp = 0;
+        console.log(testArray);
+        sessionStorage.setItem('testTeas', JSON.stringify(testArray));
+
     });
 
 

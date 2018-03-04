@@ -74,15 +74,28 @@ $(document).ready(function() {
     document.getElementById("cartItems").innerText = test;*/
 
 
-    var retrievedNames = sessionStorage.getItem("ids");
-    var storedNames = JSON.parse(retrievedNames);
-    var retrievedQ = sessionStorage.getItem("quantity");
-    var storedQ = JSON.parse(retrievedQ);
+    //var retrievedNames = sessionStorage.getItem("ids");
+    //var storedNames = JSON.parse(retrievedNames);
+    //var retrievedQ = sessionStorage.getItem("quantity");
+    //var storedQ = JSON.parse(retrievedQ);
 
-    console.log(storedNames);
-    console.log(storedQ);
-    var teasInCart = {};
-    for (var i = 0; i < storedNames.length; i++) {
+    //console.log(storedNames);
+    //console.log(storedQ);
+    let teasInCart = JSON.parse(sessionStorage.getItem('testTeas'));
+    let counter = 0;
+
+    function keepCount () {
+        teasInCart = JSON.parse(sessionStorage.getItem('testTeas'));
+        counter = 0;
+        for (let i in teasInCart) {
+            counter += teasInCart[i];
+        }
+        $('#cartItems').text(' (' + counter + ') ');
+    }
+
+    keepCount();
+
+    /*for (var i = 0; i < storedNames.length; i++) {
         //console.log(storedQ[i] + storedQ[i + 1]);
         //teasInCart.push(storedNames[i], storedQ[i]);
         if (teasInCart.hasOwnProperty(storedNames[i])) {
@@ -93,12 +106,12 @@ $(document).ready(function() {
         }
         //teasInCart[storedNames[i]] =  storedQ[i];
         //console.log(parseInt(teasInCart[storedNames[i]]) + storedQ[i]);
-    }
+    }*/
     console.log(teasInCart);
-    var getTeas = localStorage.getItem("storeTeas");
-    var teas = JSON.parse(getTeas);
+    //let getTeas = localStorage.getItem("storeTeas");
+    let teas = JSON.parse(localStorage.getItem('storeTeas'));
     let checkoutSum = document.getElementById("checkout-summary");
-    for (i in teas) {
+    for (let i in teas) {
         if (teasInCart.hasOwnProperty(teas[i].pName)) {
             console.log(teas[i].pName);
             console.log(teasInCart[teas[i].pName]);
@@ -168,11 +181,13 @@ $(document).ready(function() {
        }
        //console.log(name);
        teasInCart[$(this).closest('.cart-item').find('.ci-info').text()] = +$(this).val();
+       sessionStorage.setItem('testTeas', JSON.stringify(teasInCart));
        //console.log(teasInCart);
        /*storedNames.push(name);
        sessionStorage.setItem('ids', JSON.stringify(storedNames));
        storedQ.push(+$(this).val());
        sessionStorage.setItem('quantity', JSON.stringify(storedQ))  ;*/
+       keepCount();
     });
     $('.ci-remove').on('click', function (event) {
         event.preventDefault();
@@ -181,6 +196,8 @@ $(document).ready(function() {
         $(this).closest('.cart-item').remove();
         delete teasInCart[name];
         console.log(teasInCart);
+        sessionStorage.setItem('testTeas', JSON.stringify(teasInCart));
+        keepCount();
 
     });
     /*removeBtn = document.getElementById("English Breakfast Tea");

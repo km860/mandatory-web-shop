@@ -18,7 +18,7 @@
 				</ul>
 			</div>
 			<div class="brand"><a href="index.html"><span>TEA</span></a></div>
-			<div class="cart"><a href="checkout.html"><span class="fas fa-shopping-cart"></span><span> (0)</span></a></div>
+			<div class="cart"><a href="checkout.html"><span class="fas fa-shopping-cart"></span><span id="cartItems"> (0)</span></a></div>
 		</nav>
 		<main class="index-container">
 			<div class="blackimg">
@@ -56,5 +56,20 @@
 				</div>
 			</div>
 		</main>
+		<script src="../scripts/jquery-3.3.1.min.js"></script>
+		<script>
+			$(document).ready(function () {
+			    let getTeas = {};
+			    let counter = 0;
+                if (sessionStorage.getItem('testTeas') !== null) {
+                    getTeas = JSON.parse(sessionStorage.getItem(('testTeas')));
+                    for (let i in getTeas) {
+                        counter += getTeas[i];
+                    }
+                    $('#cartItems').text(' (' + counter + ') ');
+                }
+
+                });
+		</script>
 	</body>
 </html>
