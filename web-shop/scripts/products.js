@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+    // creating the product objects
     let englishBreakfast = {
         pName: "English Breakfast Tea",
         desc: "English breakfast tea is a traditional blend of teas originating from Assam, " +
@@ -72,121 +74,77 @@ $(document).ready(function() {
         price: 99,
         pImage: "../imgs/chamomil.jpg"
     };
+    let purpleHaze = {
+        pName: 'Purple Haze',
+        desc: 'purple haze is one of the popular varieties of tea in the market and it has many health benefits and " +\n' +
+        'uses. These include its ability to protect the skin, lower stress levels, regulate sleep, and " +\n' +
+        'soothe menstrual symptoms. It also boosts the immune system, treats gastrointestinal issue',
+        price: 200,
+        pImage: '../imgs/purple-haze.jpg'
+    };
 
-    let teas = [englishBreakfast, earlGrey, darjeeling, gunpowder, genmai, jasmine, strawberry, camomile];
+    // adding the teas to an array of objects and then storing them in localStorage
+    let teas = [englishBreakfast, earlGrey, darjeeling, gunpowder, genmai, jasmine, strawberry, camomile, purpleHaze];
     localStorage.setItem("storeTeas", JSON.stringify(teas));
 
-
-
-    let productImage = document.querySelectorAll("img");
-    for (let i = 0; i < productImage.length; i++) {
-        productImage[i].setAttribute("src", teas[i].pImage);
-
-    }
-    let productName = document.querySelectorAll("h4");
-    for (let i = 0; i < productName.length; i++) {
-        productName[i].innerHTML = teas[i].pName;
-    }
-
-    let productPrice = document.querySelectorAll(".price");
-    for (let i = 0; i < productPrice.length; i++) {
-        productPrice[i].innerHTML = teas[i].price + ":-";
-    }
-
-    let productDesc = document.querySelectorAll("p");
-    for (let i = 0; i < productDesc.length; i++) {
-        productDesc[i].innerHTML = teas[i].desc;
-    }
+    // create html elements and add product information
+    
+    teas.forEach((el) => {
+        let productRow = $('<div class="product-rows">');
+        let itemContainer = $('<div class="items"></div>');
+        let imageContainer = $('<div class="item-img">');
+        let productImage = $('<img>');
+        let textContainer = $('<div class="item-text">');        
+        let productName = $('<h4></h4>');
+        let productPrice = $('<span class="price"></span>');
+        let productDesc = $('<p></p>');
+        let labelQ = $('<label>QUANTITY</label>');
+        let inputQ = $('<input type="number" value="1" min="1">');
+        let btnBuy = $('<button id="buybtn">ADD TO CART</button>');
+        productImage.attr('src', el.pImage);
+        productName.text(el.pName);
+        productPrice.text(el.price);
+        productDesc.text(el.desc);
+        imageContainer.append(productImage);
+        textContainer.append(productName, productPrice, productDesc, labelQ, inputQ, btnBuy);
+        itemContainer.append(imageContainer, textContainer);
+        productRow.append(itemContainer);
+        $('.shop-container').append(productRow);
+    });
+    
     let temp = 0;
     let counter = 0;
-    let storeName = [];
-    let storeQ = [];
-    let testArray = {};
-    if (sessionStorage.getItem('testTeas') !== null) {
-        testArray = JSON.parse(sessionStorage.getItem('testTeas'))
-        for (i in testArray) {
-            counter += testArray[i];
+    let teasInCart = {};  //testArray
+    
+    // get teasInCartStorage from localStorage and display 
+    if (sessionStorage.getItem('teasIncartStorage') !== null) {
+        teasInCart = JSON.parse(sessionStorage.getItem('teasIncartStorage'))
+        for (i in teasInCart) {
+            counter += teasInCart[i];
         }
         $('#cartItems').text(' (' + counter + ') ');
     }
-    let testVar = 0;
+    let teaName;
 
-    /* StoreName keeps track of the names of teas, temp keeps track of many of a particular tea you put in the cart, it is
-       set to 0 for every new tea.
-       counter keeps track of the overall amount of tea in the cart and is updated with temp, it is also displayed in
-       the cartItem span (x).
+    /* temp keeps track of how many of a particular tea you put in the cart,
+     it is set to 0 for every new tea.
+     counter keeps track of the overall amount of tea in the cart and is updated with temp, it is also displayed in
+     the cartItem span (x).
      */
 
     $('button').on('click', function() {
-        $(this).closest('.item-text').find('h4').css('background-color', 'red');
-        storeName.push($(this).closest('.item-text').find('h4').text());
-        testVar = $(this).closest('.item-text').find('h4').text();
+        teaName = $(this).closest('.item-text').find('h4').text();
         temp = +$(this).closest('.item-text').find('input').val();
-        if (testArray.hasOwnProperty(testVar)) {
-            testArray[testVar] = parseInt(testArray[testVar] + temp);
+        if (teasInCart.hasOwnProperty(teaName)) {
+            teasInCart[teaName] = parseInt(teasInCart[teaName] + temp);
         }
         else {
-            testArray[testVar] = temp;
+            teasInCart[teaName] = temp;
         }
-        storeQ.push(temp);
         counter += temp;
         $('#cartItems').text(' (' + counter + ') ');
-        sessionStorage.setItem("ids", JSON.stringify(storeName));
-        sessionStorage.setItem("quantity", JSON.stringify(storeQ));
-        //console.log($(this).closest('.item-text').find('h4').text());
         temp = 0;
-        console.log(testArray);
-        sessionStorage.setItem('testTeas', JSON.stringify(testArray));
+        sessionStorage.setItem('teasIncartStorage', JSON.stringify(teasInCart));
 
     });
-
-
-    /* Lite onödig kod men tanken var att man skulle hålla reda på antalet varor i korgen för att sedan visa
-       sin beställning vid checkout. Den loopar igenom alla LABELS och sätter for-attribut på dem som motsvarar namnet på
-       just den produkten (fast utan mellanslag), den blir också id för input (QUANTITY). Köp-knapparna får ett id som är namnet för
-       produkten.
-     */
-
-    /*let btn = document.querySelectorAll("button");
-    let tag = document.getElementsByTagName("LABEL");
-    for (let i = 0; i < tag.length; i++) {
-        tag[i].setAttribute("for", teas[i].pName.replace(/\s/g,''));
-        document.getElementsByTagName("INPUT")[i].setAttribute("id", teas[i].pName.replace(/\s/g,''));
-        btn[i].setAttribute("id", teas[i].pName);
-    }*/
-
-    /* "n" håller reda på id för QUANTITY, "temp" innehåler värdet av QUANTITY och nollställs efter varje tryck på
-        köp-knapparna. "counter" håller räkningen på temp och uppdaterar värdet i kundkorgen.
-     */
-//document.getElementById("cartItems").innerText = localStorage.getItem("numberOfItems");
-
-
-    /*let temp = 0;
-    let counter = 0;
-    let n;
-    let storeName = [];
-    let storeQ = [];*/
-
-
-    /*btn.forEach(el => el.addEventListener("click", function () {
-
-        console.log(el.getAttribute("id"));
-        storeName.push(el.getAttribute("id"));
-        n = el.getAttribute("id").replace(/\s/g,'');
-        console.log(n);
-        temp = Number(document.getElementById(n).value);
-        storeQ.push(temp);
-
-
-        counter += temp;
-        console.log(counter);
-        document.getElementById("cartItems").innerText = "(" + counter + ")";
-        localStorage.setItem("ids", JSON.stringify(storeName));
-        localStorage.setItem("quantity", JSON.stringify(storeQ));
-        /!*localStorage.setItem(el.getAttribute("id"), temp);
-        localStorage.setItem('quant', temp);*!/
-        temp = 0;
-    }));*/
-
-
 });

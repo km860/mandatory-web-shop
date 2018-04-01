@@ -1,91 +1,85 @@
-function validate() {
-    let firstName = document.getElementById("firstname");
-    let lastName = document.getElementById("lastname");
-    let mail = document.getElementById("mail");
-    let address = document.getElementById("address");
-    let zipCode = document.getElementById("zip");
-    let city = document.getElementById("city");
+//function validate() {
+$('#continue-button').on('click', function (event) {
+
+    event.preventDefault();
+    let firstName = $('#firstname');
+    let lastName = $('#lastname');
+    let mail = $('#mail');
+    let address = $('#address');
+    let zipCode = $('#zip');
+    let city = $('#city');
 
     let inputPattern = "[a-zA-Z-]+";
     let mailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     let addressPattern = /^[a-zA-Z0-9\s,'-]+$/;
 
-    if (firstName.value.match(inputPattern)) {
-        document.getElementById("name-error").innerHTML = "";
+    if (firstName.val().match(inputPattern)) {
+        $('#name-error').text('');
 
     }
     else {
-        document.getElementById("name-error").innerHTML = "your first name required";
+        $('#name-error').text('your first name required');
         firstName.focus();
         return false;
     }
-    if (lastName.value.match(inputPattern)) {
-        document.getElementById("name-error").innerHTML = "";
-
+    if (lastName.val().match(inputPattern)) {
+        $('#name-error').text('');
     }
     else {
-        document.getElementById("name-error").innerHTML = "your last name required";
+        $('#name-error').text('your last name required');        
         lastName.focus();
         return false;
     }
 
-    if (mail.value.match(mailPattern)) {
-        document.getElementById("mail-error").innerHTML = "";
+    if (mail.val().match(mailPattern)) {
+        $('#mail-error').text('');
     }
 
     else {
-        document.getElementById("mail-error").innerHTML = "email address required in the correct format";
+        $('#mail-error').text("email address required in the correct format");
         mail.focus();
         return false;
     }
-    if (address.value.match(addressPattern)) {
-        document.getElementById("address-error").innerHTML = "";
+    if (address.val().match(addressPattern)) {
+        $('#address-error').text('');
     }
     else {
-        document.getElementById("address-error").innerHTML = "enter your address in the correct format";
+        $('#address-error').text('enter your address in the correct format');
         address.focus();
         return false;
     }
 
-    if (zipCode.value.match(addressPattern)) {
-        document.getElementById("address-error").innerHTML = "";
+    if (zipCode.val().match(addressPattern)) {
+        $('#address-error').text('');
     }
     else {
-        document.getElementById("address-error").innerHTML = "enter your zip in correct format";
+        $('#address-error').text("enter your zip in correct format");
         zipCode.focus();
         return false;
     }
 
-    if (city.value.match(inputPattern)) {
-        document.getElementById("address-error").innerHTML = "";
+    if (city.val().match(inputPattern)) {
+        $('#address-error').text('');
     }
     else {
-        document.getElementById("address-error").innerHTML = "enter your city";
+        $('#address-error').text("enter your city");
         city.focus();
         return false;
     }
-    return true;
 
-}
+    $('.checkout-main').hide();
+    $('#success').show();
+
+});
 $(document).ready(function() {
+    // get teas from localStorage
 
-    /*var test = localStorage.getItem('numberOfItems');
-    console.log(localStorage.getItem('name'), localStorage.getItem('quant'));
-    document.getElementById("cartItems").innerText = test;*/
-
-
-    //var retrievedNames = sessionStorage.getItem("ids");
-    //var storedNames = JSON.parse(retrievedNames);
-    //var retrievedQ = sessionStorage.getItem("quantity");
-    //var storedQ = JSON.parse(retrievedQ);
-
-    //console.log(storedNames);
-    //console.log(storedQ);
-    let teasInCart = JSON.parse(sessionStorage.getItem('testTeas'));
+    let teasInCart = JSON.parse(sessionStorage.getItem('teasIncartStorage'));
     let counter = 0;
 
     function keepCount () {
-        teasInCart = JSON.parse(sessionStorage.getItem('testTeas'));
+        // get teasInCart from localStorage and display in cart span
+        teasInCart = JSON.parse(sessionStorage.getItem('teasIncartStorage'));
         counter = 0;
         for (let i in teasInCart) {
             counter += teasInCart[i];
@@ -95,27 +89,17 @@ $(document).ready(function() {
 
     keepCount();
 
-    /*for (var i = 0; i < storedNames.length; i++) {
-        //console.log(storedQ[i] + storedQ[i + 1]);
-        //teasInCart.push(storedNames[i], storedQ[i]);
-        if (teasInCart.hasOwnProperty(storedNames[i])) {
-            teasInCart[storedNames[i]] = parseInt(teasInCart[storedNames[i]]) + storedQ[i];
-        }
-        else {
-            teasInCart[storedNames[i]] = storedQ[i];
-        }
-        //teasInCart[storedNames[i]] =  storedQ[i];
-        //console.log(parseInt(teasInCart[storedNames[i]]) + storedQ[i]);
-    }*/
-    console.log(teasInCart);
-    //let getTeas = localStorage.getItem("storeTeas");
+    
+    // get teas from localStorage
     let teas = JSON.parse(localStorage.getItem('storeTeas'));
     let checkoutSum = document.getElementById("checkout-summary");
+
+    // compare teasIncart to teas and create html elements to display in checkout summary
     for (let i in teas) {
         if (teasInCart.hasOwnProperty(teas[i].pName)) {
-            console.log(teas[i].pName);
+           /*  console.log(teas[i].pName);
             console.log(teasInCart[teas[i].pName]);
-            console.log(parseInt(teasInCart[teas[i].pName] * teas[i].price));
+            console.log(parseInt(teasInCart[teas[i].pName] * teas[i].price)); */
             //document.getElementById("myImage").setAttribute("src", teas[i].pImage);
             let cartItem = document.createElement("div");
             let CIleft = document.createElement("div");
@@ -159,20 +143,10 @@ $(document).ready(function() {
             cartItem.appendChild(CIRight);
             checkoutSum.appendChild(cartItem);
 
-            /*CIRemove.addEventListener("click", function () {
-               let child = document.getElementById(teas[i].pName.replace(/\s/g,''));
-               checkoutSum.removeChild(child);
-               window.reload();
-            });*/
-
         }
     }
     let name;
-    $('.checkout-summary').on('change', 'input', function () {
-       console.log($(this).val());
-       //sessionStorage.clear();
-       //storedQ = [];
-       //storedNames = [];
+    $('.checkout-summary').on('change', 'input', function () {   
        name = $(this).closest('.cart-item').find('.ci-info').text();
        for (i in teas) {
            if (teas[i].pName === name) {
@@ -181,12 +155,7 @@ $(document).ready(function() {
        }
        //console.log(name);
        teasInCart[$(this).closest('.cart-item').find('.ci-info').text()] = +$(this).val();
-       sessionStorage.setItem('testTeas', JSON.stringify(teasInCart));
-       //console.log(teasInCart);
-       /*storedNames.push(name);
-       sessionStorage.setItem('ids', JSON.stringify(storedNames));
-       storedQ.push(+$(this).val());
-       sessionStorage.setItem('quantity', JSON.stringify(storedQ))  ;*/
+       sessionStorage.setItem('teasIncartStorage', JSON.stringify(teasInCart));
        keepCount();
     });
     $('.ci-remove').on('click', function (event) {
@@ -196,13 +165,8 @@ $(document).ready(function() {
         $(this).closest('.cart-item').remove();
         delete teasInCart[name];
         console.log(teasInCart);
-        sessionStorage.setItem('testTeas', JSON.stringify(teasInCart));
+        sessionStorage.setItem('teasIncartStorage', JSON.stringify(teasInCart));
         keepCount();
 
     });
-    /*removeBtn = document.getElementById("English Breakfast Tea");
-    removeBtn.addEventListener("click", function (event) {
-        event.preventDefault();
-        document.getElementById("EnglishBreakfastTea").innerHTML = "";
-    });*/
 });

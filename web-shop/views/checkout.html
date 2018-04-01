@@ -20,9 +20,10 @@
 			<div class="brand"><a href="index.html"><span>TEA</span></a></div>
 			<div class="cart"><a href="checkout.html"><span class="fas fa-shopping-cart"></span><span id="cartItems"> (0)</span></a></div>
 		</nav>
+		<div id="success" style="display: none;"><img src="../imgs/21-kermit-tea.nocrop.w710.h2147483647.gif" alt=""></div>
 		<main class="checkout-main">
 			<div class="form-container">
-				<form id="checkoutInfo" onsubmit="return (validate());">
+				<form id="checkoutInfo"> <!--onsubmit="return (validate());"-->
 					<label>Your Name <span id="name-error" class="error-span"></span></label>
 					<div>
 						<input type="text" id="firstname" placeholder="First Name">
