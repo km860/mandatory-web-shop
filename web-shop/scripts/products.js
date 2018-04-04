@@ -100,17 +100,126 @@ $(document).ready(function() {
         let productDesc = $('<p></p>');
         let labelQ = $('<label>QUANTITY</label>');
         let inputQ = $('<input type="number" value="1" min="1">');
-        let btnBuy = $('<button id="buybtn">ADD TO CART</button>');
+        let btnBuy = $('<button class="buyBtn">ADD TO CART</button>');
+        
+        let showReviews = $('<button class="showReviews">SHOW REVIEWS</button>');
+        let reviewsContainer = $('<div class="reviewsContainer"></div>');
+        let inputLabel = $('<label>Name</label>');
+        let inputName = $('<input type="text">');
+        let ratingLabel = $('<label>Rating</label>');
+        let starsContainer = $('<div class="stars"><span data-rating-id="1">&#9733;</span>'
+                                                    + '<span data-rating-id="2">&#9733;</span>'
+                                                    + '<span data-rating-id="3">&#9733;</span>'
+                                                    + '<span data-rating-id="4">&#9733;</span>'
+                                                    + '<span data-rating-id="5">&#9733;</span></div>');
+        let txtLabel = $('<label>Review</label>');
+        let txtReview = $('<textarea></textarea>');
+        let postBtn = $('<button class="postBtn">POST REVIEW</button>');
+        let postedReviews = $('<div class="postedReviews"></div>');
+        //reviewsContainer.css('display', 'none');
+        reviewsContainer.hide();
+
         productImage.attr('src', el.pImage);
         productName.text(el.pName);
         productPrice.text(el.price);
         productDesc.text(el.desc);
         imageContainer.append(productImage);
-        textContainer.append(productName, productPrice, productDesc, labelQ, inputQ, btnBuy);
+        textContainer.append(productName, productPrice, productDesc, labelQ, inputQ, btnBuy, showReviews);
         itemContainer.append(imageContainer, textContainer);
-        productRow.append(itemContainer);
+        reviewsContainer.append(inputLabel, inputName, ratingLabel, starsContainer, txtLabel, 
+                                txtReview, postBtn,postedReviews);
+        productRow.append(itemContainer, reviewsContainer);
         $('.shop-container').append(productRow);
     });
+    // TODO
+    $('.showReviews').on('click', function () {
+        // shows the closest reviewsContainer hide/show
+        $(this).closest('.product-rows').find('.reviewsContainer').toggle();
+        // clear reviews, so they don't repeat every time you toggle
+        $(this).closest('.product-rows').find('.postedReviews').text('');
+        // get reviews for the specific product from localStorage and display
+        let nameOnReview = $(this).closest('.product-rows').find('h4').text();
+        // see if this product actually have any reviews saved in localStorage
+        if (localStorage.getItem(nameOnReview) !== null) {
+            let reviews = JSON.parse(localStorage.getItem(nameOnReview));
+            for (let i in reviews) {
+                let rated = $('<span></span>');
+                for (let n = 0; n < reviews[i].stars; n++) {
+                    rated.append(`<span>&#9733;</span>`);
+                } 
+                $(this).closest('.product-rows').find('.reviewsContainer .postedReviews').append(`<p>
+                                <strong>${reviews[i].name}</strong><br>
+                                ${reviews[i].review}<br>${rated.text()}</p>`);
+            }
+            
+        }
+    
+    });
+    let rating = 0;
+    $('.stars').on('click', 'span', function (e) {
+        let star = $(e.target);
+        rating = parseInt(star.attr('data-rating-id'));
+        //console.log(rating);
+        //console.log($(this).closest('.stars').find('span'));
+        let stars = $(e.target).closest('.stars').find('span');
+        $('.filled').removeClass('filled');
+        for (let i = 1; i <= rating; i++) {
+            $(stars[i - 1]).addClass('filled');
+    
+        }
+    });
+    $('.postBtn').on('click', function () {
+        // save name of the product you want to review
+        let nameOnReview = $(this).closest('.product-rows').find('h4').text();
+
+        //get review input
+        let inputName = $(this).closest('.reviewsContainer').find('input');
+        let txtReview = $(this).closest('.reviewsContainer').find('textarea');
+        let name = inputName.val();
+        let aReview = txtReview.val();
+        
+        // see if validated
+        if(!validateReview(name, aReview)) {
+            return false;
+        }
+        let rated = $('<span></span>');
+        for (let n = 0; n < rating; n++) {
+            rated.append(`<span>&#9733;</span>`);
+        } 
+        $(this).closest('.reviewsContainer').find('.postedReviews')
+        .append(`<p><strong>${name}</strong>
+                <br>${aReview}<br>
+                ${rated.text()}</p>`);
+        
+        inputName.val('');
+        txtReview.val('');
+        let review = {
+            name: name,
+            stars: rating,
+            review: aReview
+        }
+        if (localStorage.getItem(nameOnReview) === null) {
+            let reviews = [];
+            reviews.push(review);
+            localStorage.setItem(nameOnReview, JSON.stringify(reviews));
+            
+        }
+        else {
+            let reviews = JSON.parse(localStorage.getItem(nameOnReview));
+            reviews.push(review);
+            localStorage.setItem(nameOnReview, JSON.stringify(reviews));
+        }        
+        
+    });
+
+    function validateReview (name, aReview) {
+        // check to see if name and textarea are empty
+        if (name == '' || aReview == '') {
+            alert('Fill in info');
+            return false;
+        }
+        return true;
+    }
     
     let temp = 0;
     let counter = 0;
@@ -132,7 +241,7 @@ $(document).ready(function() {
      the cartItem span (x).
      */
 
-    $('button').on('click', function() {
+    $('.buyBtn').on('click', function() {
         teaName = $(this).closest('.item-text').find('h4').text();
         temp = +$(this).closest('.item-text').find('input').val();
         if (teasInCart.hasOwnProperty(teaName)) {
@@ -147,4 +256,6 @@ $(document).ready(function() {
         sessionStorage.setItem('teasIncartStorage', JSON.stringify(teasInCart));
 
     });
+
+    
 });
