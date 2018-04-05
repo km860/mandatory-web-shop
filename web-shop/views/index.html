@@ -14,11 +14,11 @@
 			<div class="left-nav">
 				<ul>
 					<li><a href="index.html">Home</a></li>
-					<li><a href="shop.html">Shop</a></li>
+					<li><a href="products.html">Shop</a></li>
 				</ul>
 			</div>
 			<div class="brand"><a href="index.html"><span>TEA</span></a></div>
-			<div class="cart"><a href="checkout.html"><span class="fas fa-shopping-cart"></span><span> (0)</span></a></div>
+			<div class="cart"><a href="checkout.html"><span class="fas fa-shopping-cart"></span><span id="cartItems"> (0)</span></a></div>
 		</nav>
 		<main class="index-container">
 			<div class="blackimg">
@@ -29,7 +29,7 @@
 						consectetur adipisicing elit. Accusantium distinctio et expedita iusto,
 						omnis praesentium quas repudiandae! Accusantium, aliquid cum, deleniti
 					</p>
-					<a href="shop.html#black-teas"><span>See our selection of black teas</span></a>
+					<a href="products.html#black-teas"><span>See our selection of black teas</span></a>
 				</div>
 			</div>
 			<div class="bgimg">
@@ -40,7 +40,7 @@
 						consectetur adipisicing elit. Accusantium distinctio et expedita iusto,
 						omnis praesentium quas repudiandae! Accusantium, aliquid cum, deleniti
 					</p>
-					<a href="shop.html#green-teas"><span>Buy green tea</span></a>
+					<a href="products.html#green-teas"><span>Buy green tea</span></a>
 				</div>
 			</div>
 			<div class="herbalimg">
@@ -52,9 +52,24 @@
 						by traditional medicine for ages. Herbal teas have been known to cure everything from
 						migraines to cancer and stubbed toes.
 					</p>
-					<a href="shop.html#herbal-teas"><span>Get some Herbal Teas</span></a>
+					<a href="products.html#herbal-teas"><span>Get some Herbal Teas</span></a>
 				</div>
 			</div>
 		</main>
+		<script src="../scripts/jquery-3.3.1.min.js"></script>
+		<script>
+			$(document).ready(function () {
+			    let getTeas = {};
+			    let counter = 0;
+                if (sessionStorage.getItem('testTeas') !== null) {
+                    getTeas = JSON.parse(sessionStorage.getItem(('testTeas')));
+                    for (let i in getTeas) {
+                        counter += getTeas[i];
+                    }
+                    $('#cartItems').text(' (' + counter + ') ');
+                }
+
+                });
+		</script>
 	</body>
 </html>

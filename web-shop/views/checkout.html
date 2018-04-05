@@ -8,22 +8,22 @@
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Quattrocento:400,700" rel="stylesheet">
 		<link rel="stylesheet" href="../css/style.css">
-		<script src="../scripts/validation.js"></script>
 	</head>
 	<body>
 		<nav>
 			<div class="left-nav">
 				<ul>
 					<li><a href="index.html">Home</a></li>
-					<li><a href="shop.html">Shop</a></li>
+					<li><a href="products.html">Shop</a></li>
 				</ul>
 			</div>
 			<div class="brand"><a href="index.html"><span>TEA</span></a></div>
-			<div class="cart"><a href=""><span class="fas fa-shopping-cart"></span><span> (0)</span></a></div>
+			<div class="cart"><a href="checkout.html"><span class="fas fa-shopping-cart"></span><span id="cartItems"> (0)</span></a></div>
 		</nav>
+		<div id="success" style="display: none;"><img src="../imgs/21-kermit-tea.nocrop.w710.h2147483647.gif" alt=""></div>
 		<main class="checkout-main">
 			<div class="form-container">
-				<form id="checkoutInfo" onsubmit="return (validate());">
+				<form id="checkoutInfo"> <!--onsubmit="return (validate());"-->
 					<label>Your Name <span id="name-error" class="error-span"></span></label>
 					<div>
 						<input type="text" id="firstname" placeholder="First Name">
@@ -42,6 +42,26 @@
 					<button id="continue-button">CONTINUE</button>
 				</form>
 			</div>
+			<div class="checkout-summary" id="checkout-summary">
+				<h4>Order Summary</h4>
+				<!--<div class="cart-item">
+					<div class="ci-left">
+						<div class="ci-img">
+							<img src="../imgs/gunpowder.jpg" alt="" width="108" id="myImage">
+						</div>
+						<div class="ci-info">Gunpowder</div>
+					</div>
+					<div class="ci-right">
+						<div class="ci-price">99:-</div>
+						<div class="ci-quantity">
+							<input type="number" value="2" min="0">
+						</div>
+						<div class="ci-remove">X</div>
+					</div>
+				</div>-->
+			</div>
 		</main>
+		<script src="../scripts/jquery-3.3.1.min.js"></script>
+		<script src="../scripts/checkout.js"></script>
 	</body>
 </html>
